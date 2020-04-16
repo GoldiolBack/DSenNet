@@ -13,6 +13,8 @@ class Net(nn.Module):
         self.rBlock = ResBlock(feature_size, kernel_size)
 
     def forward(self, x, num_layers=6):
+#       input10 = ...
+#       input20 = ...
         x = torch.cat((input10, input20), 0)
         x = self.conv1(x)
         x = F.relu(x)
@@ -35,4 +37,5 @@ class ResBlock(nn.Module):
         tmp = tmp * scale
         tmp += x
         return tmp
-
+    
+    
