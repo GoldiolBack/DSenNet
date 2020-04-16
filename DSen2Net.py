@@ -6,17 +6,18 @@ import torch.optim as optim
 
 
 class Net(nn.Module):
-    def __init__(self, input_shape=((4, 32, 32), (6, 16, 16)), feature_size=128):
+    def __init__(self, input_shape=((4, 32, 32), (6, 16, 16)), feature_size=128, kernel_size=3):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, feature_size, 3, 1)
-        self.conv2 = nn.conv2d(feature_size, input_shape[-1][0], 3, 1)
+        self.conv1 = nn.Conv2d(1, feature_size, kernel_size, 1)
+        self.conv2 = nn.conv2d(feature_size, input_shape[-1][0], kernel_size, 1)
+        self.rBlock = ResBlock(feature_size, kernel_size)
 
     def forward(self, x, num_layers=6):
         x = torch.cat((input10, input20), 0)
         x = self.conv1(x)
         x = F.relu(x)
         for i in range(num_layers):
-            x = ResBlock(x, feature_size)
+            x = self.rBlock(x)
         x = self.conv2(x)
         x += input20
         return x
