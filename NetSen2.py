@@ -23,13 +23,7 @@ class Net(nn.Module):
         x = F.relu(x)
         for i in range(num_layers):
             x = self.rBlock(x)
-            print(i)
-        print(x.size())
         x = self.conv2(x)
-        print(x.size())
-        print(input20.size())
-        print(input10.size())
-        print(sentinel.size())
         x += input20
         return x
 
@@ -41,13 +35,9 @@ class ResBlock(nn.Module):
 
     def forward(self, x, scale=0.1):
         tmp = self.conv3(x)
-        print(tmp.size())
         tmp = F.relu(tmp)
-        print(tmp.size())
         tmp = self.conv3(tmp)
-        print(tmp.size())
         tmp = tmp * scale
-        print(x.size())
         tmp += x
         return tmp
 
@@ -88,7 +78,7 @@ def test(args, model, device, test_loader):
 
 def main():
     # Training settings
-    parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+    parser = argparse.ArgumentParser(description='PyTorch NetSen2')
     parser.add_argument('--batch-size', type=int, default=2, metavar='N',
                         help='input batch size for training (default: 64)')
     parser.add_argument('--test-batch-size', type=int, default=1, metavar='N',
